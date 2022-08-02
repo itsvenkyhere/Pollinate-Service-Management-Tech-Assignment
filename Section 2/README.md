@@ -15,7 +15,7 @@ The CITY table is described as follows:
 ```sql
 SELECT * FROM CITY WHERE ID=1661;
 ```
-![Screenshot](1.png)
+![Screenshot](../Images/2.1.png)
 
 ## 2.
 
@@ -72,7 +72,7 @@ SELECT NAME FROM EMPLOYEE
 WHERE SALARY > 2000 AND MONTHS < 10
 ORDER BY EMPLOYEE_ID;
 ```
-![Screenshot](2.png)
+![Screenshot](../Images/2.2.png)
 
 ## 3.
 
@@ -170,7 +170,7 @@ FROM OCCUPATIONS
 GROUP by OCCUPATION
 ORDER by COUNT(OCCUPATION), OCCUPATION;
 ```
-![Screenshot](3.png)
+![Screenshot](../Images/2.3.png)
 
 ## 4.
 
@@ -195,7 +195,7 @@ BEGIN
    SET @i = @i + 1
 END;
 ```
-![Screenshot](4.png)
+![Screenshot](../Images/2.4.png)
 
 ## 5.
 
@@ -220,7 +220,7 @@ PRINT REPLICATE('* ', @i)
 SET @i = @i - 1
 END;
 ```
-![Screenshot](5.png)
+![Screenshot](../Images/2.5.png)
 
 ## 6.
 
@@ -270,7 +270,7 @@ FOR PROJECTEDMONTH IN  ('+@PIVOT_COLUMN+')
 /*EXECUTE QUERY*/
 EXEC  SP_EXECUTESQL  @QUERY
 ```
-![Screenshot](6.png)
+![Screenshot](../Images/2.6.png)
 
 
 
