@@ -1,7 +1,7 @@
 # PollinateTimestamp API
 
 ### About
-Simple REST API that will be used to submit a curl command (curl -X POST http://ipaddress/app) that will insert the date-time stamp into NoSQL database.
+Simple REST API that will be used to submit a curl command (curl -X POST http://&lt;ipaddress&gt;/app) that will insert the date-time stamp into NoSQL database.
 
 ### Solution
 [Please refer the design document](https://github.com/itsvenkyhere/Pollinate-Service-Management-Tech-Assignment/blob/main/Section-1/HighLevelDesign.pdf)
@@ -10,10 +10,10 @@ Simple REST API that will be used to submit a curl command (curl -X POST http://
 REST API has 2 HTTP methods implemented
 1. HTTP POST on context /app
    1. Saves the current date timestamp into NoSQL Database.
-   2. curl -X POST http://ipaddress/app
+   2. curl -X POST http://&lt;ipaddress&gt;/app
 2. HTTP GET on context /test
    1. Added just for testing purpose
-   2. curl -X GET http://ipaddress/test
+   2. curl -X GET http://&lt;ipaddress&gt;/test
 
 ### How to build and run from IntelliJ IDE
 1. Checkout the GIT repository
@@ -23,7 +23,7 @@ REST API has 2 HTTP methods implemented
    3. host
    4. database
 3. mvn spring-boot:run
-4. Access the application at http://ipaddress:8080/app
+4. Access the application at http://&lt;ipaddress&gt;:8080/app
 
 ### How to build and deploy on Kubernetes
 1. Checkout the GIT repository
@@ -39,4 +39,4 @@ REST API has 2 HTTP methods implemented
    5. kind: ConfigMap
    6. kind: PersistentVolume
    7. kind: PersistentVolumeClaim
-7. Access the application at http://ipaddress:30008/app
+7. Access the application at http://&lt;ipaddress&gt;:30008/app
