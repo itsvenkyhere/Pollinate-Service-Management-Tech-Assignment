@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pollinate-deployment
+spec:
+  selector:
+    matchLabels:
+      app: spring-boot-pollinate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-boot-pollinate
+    spec:
+      containers:
+        - name: pollinate-timestamp
+          image: itsvenkyhere/pollinate
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: username
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: password
+            - name: MONGO_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-conf
+                  key: database
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-conf
+                  key: host
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pollinate-service
+spec:
+  type: NodePort
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+      nodePort: 30008
+  selector:
+    app: spring-boot-pollinate
+
+
+---
+
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pollinate-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pollinate-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+

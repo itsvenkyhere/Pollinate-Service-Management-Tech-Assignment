@@ -1,0 +1,39 @@
+pipeline{
+    agent any
+    tools{
+        maven 'maven_3_8_6'
+    }
+    stages{
+        stage('Build Maven Project'){
+            steps{
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/itsvenkyhere/PollinateTimestampAssignment']]])
+                sh 'mvn clean install -DskipTests'
+            }
+        }
+        stage('Build Docker Image'){
+            steps {
+                script {
+                    sh 'docker build -t itsvenkyhere/pollinate .'
+                }
+            }
+        }
+        stage('Push Image to Repo'){
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'DockerHubPassword', variable: 'DockerHubPassword')]) {
+                        sh 'docker login -u itsvenkyhere -p ${DockerHubPassword}'
+                    }
+                    sh 'docker push itsvenkyhere/pollinate'
+                }
+            }
+        }
+        stage('Deploy to Kubernetes'){
+            steps{
+                script{
+                    kubernetesDeploy (configs: 'mongoDB-deployment.yaml',kubeconfigId: 'k8sconfigpwd')
+                    kubernetesDeploy (configs: 'application-deployment.yaml',kubeconfigId: 'k8sconfigpwd')
+                }
+            }
+        }
+    }
+}

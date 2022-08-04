@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: POLLINATE-TIMESTAMP-SERVICE
+  data:
+    mongodb:
+      host: '${MONGO_HOST}'
+      database: '${MONGO_DB}'
+      port: 27017
+      username: '${MONGO_USERNAME}'
+      password: '${MONGO_PASSWORD}'
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
